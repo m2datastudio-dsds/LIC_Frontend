@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 150" role="img" aria-labelledby="title">
+  <title id="title">Life Insurance Corporation of India</title>
+  <rect width="620" height="150" rx="12" fill="#fff"/>
+  <rect width="135" height="150" rx="10" fill="#1655a5"/>
+  <rect x="135" width="14" height="150" fill="#f7ca18"/>
+  <path d="M31 25c13-16 27-21 37-21s24 5 37 21v42c0 29-15 48-37 63-22-15-37-34-37-63z" fill="none" stroke="#fff" stroke-width="3"/>
+  <path d="M43 76c10 2 17 8 25 20 8-12 15-18 25-20-4 19-14 28-25 39-11-11-21-20-25-39z" fill="#fff"/>
+  <path d="M55 39c0-9 5-16 11-20v40c-6-4-11-11-11-20zm15-20c7 4 11 11 11 20s-4 16-11 20z" fill="#fff"/>
+  <text x="172" y="61" fill="#1655a5" font-family="Arial, sans-serif" font-size="27" font-weight="700">भारतीय जीवन बीमा निगम</text>
+  <text x="172" y="96" fill="#1655a5" font-family="Arial, sans-serif" font-size="20" font-weight="700">LIFE INSURANCE CORPORATION OF INDIA</text>
+  <text x="172" y="124" fill="#8a6710" font-family="Arial, sans-serif" font-size="16">योगक्षेमं वहाम्यहम्</text>
+</svg>

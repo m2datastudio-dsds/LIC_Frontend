@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-labelledby="title">
+  <title id="title">LIC emblem watermark</title>
+  <rect width="240" height="240" rx="18" fill="#f8cb18"/>
+  <rect x="0" y="0" width="204" height="240" rx="18" fill="#1655a5"/>
+  <path d="M55 52c18-24 44-34 67-34s49 10 67 34v68c0 45-29 78-67 98-38-20-67-53-67-98z" fill="none" stroke="#fff" stroke-width="4"/>
+  <path d="M82 134c8 1 18 6 28 17 5 6 9 10 12 13 3-3 7-7 12-13 10-11 20-16 28-17-4 14-12 28-23 37-7 6-13 12-17 19-4-7-10-13-17-19-11-9-19-23-23-37z" fill="#fff"/>
+  <path d="M100 75c0-12 7-23 18-28v58c-11-6-18-17-18-30zm26-28c11 5 18 16 18 28s-7 24-18 30z" fill="#fff"/>
+  <circle cx="122" cy="78" r="12" fill="#1655a5"/>
+</svg>
