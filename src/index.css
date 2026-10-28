@@ -33,7 +33,7 @@ body.life-body-theme {
 }
 body.health-body-theme {
   background:
-    linear-gradient(rgba(247,247,248,.40), rgba(240,244,248,.40)),
+    linear-gradient(rgba(247,247,248,.78), rgba(240,244,248,.78)),
     url('/star-health-watermark.svg') center / min(88vw, 1100px) auto fixed no-repeat;
 }
 
@@ -55,7 +55,7 @@ button, input, textarea { font: inherit; }
 }
 .site-shell.health-site-theme {
   background:
-    linear-gradient(rgba(247,247,248,.40), rgba(240,244,248,.40)),
+    linear-gradient(rgba(247,247,248,.78), rgba(240,244,248,.78)),
     url('/star-health-watermark.svg') center / min(88vw, 1100px) auto fixed no-repeat;
 }
 .site-shell.real-estate-theme { background:#f7f7f3; }
