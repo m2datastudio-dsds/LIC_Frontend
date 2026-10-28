@@ -5,15 +5,30 @@ import api from '../services/api';
 import { lifeCategories } from '../data/lifeProducts';
 
 const icons = { shield: ShieldCheck, infinity: InfinityIcon, coins: BadgeIndianRupee, umbrella: Umbrella, wallet: WalletCards, chart: ChartNoAxesCombined, graduation: GraduationCap };
+const licFormsUrl = 'https://licindia.in/download-forms';
+const licServices = [
+  ['Death Claims', 'Forms required for processing death claims under regular policies.'],
+  ['Maturity Claims', 'Application and discharge forms for policy maturity payouts.'],
+  ['Survival Benefit Claims', 'Forms for periodic survival benefit payouts.'],
+  ['Policy Alteration', 'Requests for changes in policy terms, mode, or details.'],
+  ['Revival Forms', 'Forms to revive a lapsed policy.'],
+  ['ECS / NEFT Mandate Forms', 'Set up or update bank details for premiums, claims, or annuities.'],
+  ['Nomination & Assignment', 'Register or change a nominee, or assign the policy.'],
+  ['Policy Loans', 'Application forms for taking a loan against an LIC policy.'],
+  ['Duplicate Policy', 'Requirements and forms for obtaining a duplicate policy document.'],
+  ['Annuity Claims', 'Pension and annuity-related claim forms.'],
+].map(([name, description], index) => ({ id: `lic-service-${index + 1}`, name, description, url: licFormsUrl }));
 
 export default function LifeInsurancePage() {
   const [counts, setCounts] = useState({});
   const categories = lifeCategories;
-  const [services, setServices] = useState([]);
+  const [services, setServices] = useState(licServices);
   const [supportIndex, setSupportIndex] = useState(0);
   useEffect(() => { Promise.all([...lifeCategories.map((item) => api.get('/lic-products', { params: { planType: item.id } })), api.get('/services', { params: { category: 'LIFE_INSURANCE' } })]).then((responses) => {
     const next = {}; lifeCategories.forEach((item, index) => { next[item.id] = (responses[index].data.data || []).length; }); setCounts(next);
-    setServices((responses.at(-1).data.data || []).filter((item) => item.category === 'LIFE_INSURANCE'));
+    const managedServices = (responses.at(-1).data.data || []).filter((item) => item.category === 'LIFE_INSURANCE');
+    const managedNames = new Set(managedServices.map((item) => item.name.trim().toLowerCase()));
+    setServices([...managedServices, ...licServices.filter((item) => !managedNames.has(item.name.toLowerCase()))]);
   }).catch(() => {}); }, []);
   useEffect(() => {
     if (services.length <= 5) { setSupportIndex(0); return undefined; }
@@ -29,6 +44,6 @@ export default function LifeInsurancePage() {
       </Link>; })}
       <Link className="life-category-card view-all-card" to="/life-insurance/endowment"><HeartHandshake size={30}/><h2>View All Plans</h2><p>Compare all our insurance offerings.</p></Link>
     </div>
-    {services.length > 0 && <section className="support-section"><h2>Life Insurance Services</h2><div className="support-carousel"><div className="support-grid" style={{ '--support-index': supportIndex }}>{services.map((service) => <Link to="/contact" key={service.id}><HeartHandshake size={22}/><span>{service.name}</span></Link>)}</div></div></section>}
+    <section className="support-section"><h2>LIC Services & Forms</h2><div className="support-carousel"><div className="support-grid" style={{ '--support-index': supportIndex }}>{services.map((service) => service.url ? <a href={service.url} target="_blank" rel="noreferrer" key={service.id || service.name} title={service.description}><HeartHandshake size={22}/><span>{service.name}</span></a> : <Link to="/contact" key={service.id || service.name}><HeartHandshake size={22}/><span>{service.name}</span></Link>)}</div></div></section>
   </div>;
 }
