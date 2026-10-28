@@ -1,9 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { createAuthenticatedApi } from '../services/api';
 import { ArrowLeft, Building2, Pencil, Plus, Settings2, Trash2 } from 'lucide-react';
 
-const API = 'http://localhost:5000/api';
 const emptyService = { name: '', category: 'LIFE_INSURANCE', shortDescription: '', fullDescription: '', isActive: true };
 
 export default function AdminDashboardPage() {
@@ -15,7 +14,7 @@ export default function AdminDashboardPage() {
   const [editingId, setEditingId] = useState(null);
   const [message, setMessage] = useState('');
   const token = localStorage.getItem('adminToken');
-  const client = useMemo(() => axios.create({ baseURL: API, headers: { Authorization: `Bearer ${token}` } }), [token]);
+  const client = useMemo(() => createAuthenticatedApi(token), [token]);
 
   const loadData = useCallback(async () => {
     try {

@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../services/api';
 import { Bath, BedDouble, Building2, MapPin, MoveUpRight } from 'lucide-react';
 
 export default function RealEstatePage() {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
-  useEffect(() => { axios.get('http://localhost:5000/api/properties').then((r) => setProperties(r.data.data || [])).catch(() => setProperties([])).finally(() => setLoading(false)); }, []);
+  useEffect(() => { api.get('/properties').then((r) => setProperties(r.data.data || [])).catch(() => setProperties([])).finally(() => setLoading(false)); }, []);
   const money = (value) => new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(Number(value));
   return <div className="real-estate-page"><section className="real-estate-hero"><div><span className="eyebrow">Handpicked properties</span><h1>Find a place that feels like yours.</h1><p>Explore verified homes, plots and commercial properties with direct assistance at every step.</p></div><Building2 size={104}/></section>
     <section className="page-shell property-section"><div className="section-heading"><span className="eyebrow">Latest listings</span><h2>Properties for sale and rent</h2></div>

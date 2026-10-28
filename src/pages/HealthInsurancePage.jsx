@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ArrowRight, HeartHandshake, HeartPulse, ShieldCheck } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../services/api';
 
 const starHealthServices = [
   'Health Insurance Plans',
@@ -24,9 +24,9 @@ export default function HealthInsurancePage() {
 
   useEffect(() => {
     Promise.all([
-      axios.get('http://localhost:5000/api/star-health/products'),
-      axios.get('http://localhost:5000/api/star-health/plan-types'),
-      axios.get('http://localhost:5000/api/services', { params: { category: 'HEALTH_INSURANCE' } }),
+      api.get('/star-health/products'),
+      api.get('/star-health/plan-types'),
+      api.get('/services', { params: { category: 'HEALTH_INSURANCE' } }),
     ]).then(([productResponse, planTypeResponse, serviceResponse]) => {
       setProducts(productResponse.data.data || []);
       setPlanTypes((planTypeResponse.data.data || []).filter((item) => item.categorySlug === 'health-insurance'));

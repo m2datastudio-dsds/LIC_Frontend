@@ -1,7 +1,7 @@
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Bell, Mail, Menu, Phone } from 'lucide-react';
-import axios from 'axios';
+import api from '../services/api';
 
 function MainLayout() {
   const location = useLocation();
@@ -10,7 +10,7 @@ function MainLayout() {
   const adminToken = localStorage.getItem('adminToken');
   const insuranceTheme = location.pathname.includes('real-estate') ? 'real-estate-theme' : location.pathname.startsWith('/health-insurance') ? 'health-site-theme' : location.pathname.startsWith('/life-insurance') ? 'life-site-theme' : '';
   useEffect(() => {
-    axios.get('http://localhost:5000/api/agent-profile').then((response) => {
+    api.get('/agent-profile').then((response) => {
       const profile = response.data.data || {};
       setContact((current) => ({ phone: profile.phone || current.phone, email: profile.email || current.email }));
     }).catch(() => {});
@@ -21,8 +21,8 @@ function MainLayout() {
       try {
         const headers = { Authorization: `Bearer ${adminToken}` };
         const [contacts, enquiries] = await Promise.all([
-          axios.get('http://localhost:5000/api/contact', { headers }),
-          axios.get('http://localhost:5000/api/enquiries', { headers }),
+          api.get('/contact', { headers }),
+          api.get('/enquiries', { headers }),
         ]);
         const unreadContacts = (contacts.data.data || []).filter((item) => item.status === 'NEW').length;
         const unreadEnquiries = (enquiries.data.data || []).filter((item) => item.status === 'NEW').length;

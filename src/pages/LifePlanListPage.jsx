@@ -1,7 +1,7 @@
 import { ArrowRight, ShieldCheck } from 'lucide-react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../services/api';
 import { getLifeCategory } from '../data/lifeProducts';
 
 export default function LifePlanListPage() {
@@ -9,7 +9,7 @@ export default function LifePlanListPage() {
   const category = getLifeCategory(categoryId);
   const [plans, setPlans] = useState([]);
   const [loading, setLoading] = useState(true);
-  useEffect(() => { setPlans([]); setLoading(true); axios.get('http://localhost:5000/api/lic-products', { params: { planType: categoryId } }).then(({data}) => setPlans(data.data || [])).catch(() => setPlans([])).finally(() => setLoading(false)); }, [categoryId]);
+  useEffect(() => { setPlans([]); setLoading(true); api.get('/lic-products', { params: { planType: categoryId } }).then(({data}) => setPlans(data.data || [])).catch(() => setPlans([])).finally(() => setLoading(false)); }, [categoryId]);
   if (!category) return <Navigate to="/life-insurance" replace />;
   return <div className="page-shell life-catalog-page insurance-brand-page life-brand-page">
     <div className="breadcrumbs"><Link to="/">Home</Link><span>›</span><Link to="/life-insurance">Life Insurance</Link><span>›</span><strong>{category.name}</strong></div>

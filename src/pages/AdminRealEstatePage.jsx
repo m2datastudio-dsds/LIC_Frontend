@@ -1,9 +1,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { createAuthenticatedApi } from '../services/api';
 import { ArrowLeft, Building2, Camera, ImagePlus, LogOut, Mail, Pencil, Plus, Trash2, Video, X } from 'lucide-react';
 
-const API = 'http://localhost:5000/api';
 const blank = { title: '', propertyType: 'Apartment', listingType: 'SALE', status: 'AVAILABLE', price: '', location: '', address: '', bedrooms: '', bathrooms: '', area: '', areaUnit: 'sq ft', description: '', amenities: '', media: [], contactName: '', contactPhone: '', isFeatured: false, isActive: true };
 
 export default function AdminRealEstatePage() {
@@ -27,7 +26,7 @@ export default function AdminRealEstatePage() {
   const [message, setMessage] = useState('');
   const [saving, setSaving] = useState(false);
   const token = localStorage.getItem('adminToken');
-  const client = useMemo(() => axios.create({ baseURL: API, headers: { Authorization: `Bearer ${token}` } }), [token]);
+  const client = useMemo(() => createAuthenticatedApi(token), [token]);
 
   const load = useCallback(async () => {
     try {

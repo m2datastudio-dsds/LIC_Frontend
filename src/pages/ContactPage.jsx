@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+import api from '../services/api';
 
 const emptyForm = { name: '', mobile: '', email: '', subject: '', message: '' };
 
@@ -12,7 +12,7 @@ function ContactPage() {
     event.preventDefault();
     setSending(true); setStatus('');
     try {
-      await axios.post('http://localhost:5000/api/contact', form);
+      await api.post('/contact', form);
       setForm(emptyForm);
       setStatus('Your enquiry was sent successfully.');
     } catch (error) {

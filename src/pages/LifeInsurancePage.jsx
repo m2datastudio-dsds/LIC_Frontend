@@ -1,7 +1,7 @@
 import { ArrowRight, BadgeIndianRupee, ChartNoAxesCombined, GraduationCap, HeartHandshake, Infinity as InfinityIcon, ShieldCheck, Umbrella, WalletCards } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../services/api';
 import { lifeCategories } from '../data/lifeProducts';
 
 const icons = { shield: ShieldCheck, infinity: InfinityIcon, coins: BadgeIndianRupee, umbrella: Umbrella, wallet: WalletCards, chart: ChartNoAxesCombined, graduation: GraduationCap };
@@ -11,7 +11,7 @@ export default function LifeInsurancePage() {
   const categories = lifeCategories;
   const [services, setServices] = useState([]);
   const [supportIndex, setSupportIndex] = useState(0);
-  useEffect(() => { Promise.all([...lifeCategories.map((item) => axios.get('http://localhost:5000/api/lic-products', { params: { planType: item.id } })), axios.get('http://localhost:5000/api/services', { params: { category: 'LIFE_INSURANCE' } })]).then((responses) => {
+  useEffect(() => { Promise.all([...lifeCategories.map((item) => api.get('/lic-products', { params: { planType: item.id } })), api.get('/services', { params: { category: 'LIFE_INSURANCE' } })]).then((responses) => {
     const next = {}; lifeCategories.forEach((item, index) => { next[item.id] = (responses[index].data.data || []).length; }); setCounts(next);
     setServices((responses.at(-1).data.data || []).filter((item) => item.category === 'LIFE_INSURANCE'));
   }).catch(() => {}); }, []);

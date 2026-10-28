@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ExternalLink, ShieldCheck } from 'lucide-react';
 import { Link, Navigate, useParams, useSearchParams } from 'react-router-dom';
-import axios from 'axios';
+import api from '../services/api';
 
 export default function OfficialProductDetailPage() {
   const { provider } = useParams();
@@ -17,7 +17,7 @@ export default function OfficialProductDetailPage() {
   useEffect(() => {
     if (!officialUrl) return;
     setLoading(true); setError('');
-    axios.get(`http://localhost:5000/api/${isStar ? 'star-health/products/details' : 'lic-products/details'}`, { params: { url: officialUrl } })
+    api.get(`/${isStar ? 'star-health/products/details' : 'lic-products/details'}`, { params: { url: officialUrl } })
       .then((response) => setDetails(response.data.data || {}))
       .catch((err) => setError(err.response?.data?.message || 'Official product details are temporarily unavailable.'))
       .finally(() => setLoading(false));

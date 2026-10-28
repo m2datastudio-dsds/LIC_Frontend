@@ -1,7 +1,7 @@
 import { ArrowRight, ShieldCheck, Download, Loader } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import axios from 'axios';
+import api from '../services/api';
 
 export default function LicOfficialProductsPage() {
   const [searchParams] = useSearchParams();
@@ -33,8 +33,8 @@ export default function LicOfficialProductsPage() {
     setLoading(true);
     setError(null);
 
-    axios
-      .get('http://localhost:5000/api/lic-products', {
+    api
+      .get('/lic-products', {
         params: { planType },
       })
       .then((response) => {
@@ -54,7 +54,7 @@ export default function LicOfficialProductsPage() {
     setProductDetails(null);
 
     try {
-      const response = await axios.get('http://localhost:5000/api/lic-products/details', {
+      const response = await api.get('/lic-products/details', {
         params: { url: product.officialUrl },
       });
       setProductDetails(response.data.data || {});

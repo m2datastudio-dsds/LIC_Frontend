@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import axios from 'axios';
+import api from '../services/api';
 
 function ProductsPage() {
   const [searchParams] = useSearchParams();
@@ -11,7 +11,7 @@ function ProductsPage() {
   useEffect(() => {
     const params = selectedCategory ? { category: selectedCategory } : {};
 
-    axios.get('http://localhost:5000/api/products', { params })
+    api.get('/products', { params })
       .then((response) => setProducts(response.data.data || []))
       .catch(() => setProducts([]))
       .finally(() => setLoading(false));

@@ -1,7 +1,7 @@
 import { ArrowRight, HeartPulse } from 'lucide-react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../services/api';
 
 export default function HealthPlanListPage() {
   const { categoryId } = useParams();
@@ -15,8 +15,8 @@ export default function HealthPlanListPage() {
     setLoading(true);
     setCategoryLoading(true);
     Promise.all([
-      axios.get('http://localhost:5000/api/star-health/products', { params: { planType: categoryId } }),
-      axios.get('http://localhost:5000/api/star-health/plan-types'),
+      api.get('/star-health/products', { params: { planType: categoryId } }),
+      api.get('/star-health/plan-types'),
     ]).then(([productResponse, typeResponse]) => {
       setCategory((typeResponse.data.data || []).find((item) => item.categorySlug === 'health-insurance' && item.slug === categoryId) || null);
       setPlans(productResponse.data.data || []);

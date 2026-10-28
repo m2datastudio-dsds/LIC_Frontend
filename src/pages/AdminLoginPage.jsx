@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../services/api';
 import { Eye, EyeOff, LockKeyhole, Mail, ShieldCheck } from 'lucide-react';
 
 function AdminLoginPage() {
@@ -16,7 +16,7 @@ function AdminLoginPage() {
     setError('');
     setSubmitting(true);
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/admin/login', { email, password });
+      const response = await api.post('/auth/admin/login', { email, password });
       localStorage.setItem('adminToken', response.data.data.token);
       localStorage.setItem('adminUser', JSON.stringify(response.data.data.user));
       navigate('/admin/real-estate');

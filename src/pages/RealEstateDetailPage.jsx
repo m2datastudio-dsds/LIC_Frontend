@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import axios from 'axios';
+import api from '../services/api';
 import { ArrowLeft, Bath, BedDouble, Check, ChevronLeft, ChevronRight, MapPin, Maximize2, Phone } from 'lucide-react';
 
 export default function RealEstateDetailPage() {
@@ -8,7 +8,7 @@ export default function RealEstateDetailPage() {
   const [property, setProperty] = useState(null);
   const [loading, setLoading] = useState(true);
   const [activeMedia, setActiveMedia] = useState(0);
-  useEffect(() => { axios.get(`http://localhost:5000/api/properties/${id}`).then((r) => setProperty(r.data.data)).catch(() => setProperty(null)).finally(() => setLoading(false)); }, [id]);
+  useEffect(() => { api.get(`/properties/${id}`).then((r) => setProperty(r.data.data)).catch(() => setProperty(null)).finally(() => setLoading(false)); }, [id]);
   if (loading) return <div className="page-shell">Loading property…</div>;
   if (!property) return <div className="page-shell"><h1>Property not found</h1><Link to="/real-estate">Back to listings</Link></div>;
   const media = property.media || [];

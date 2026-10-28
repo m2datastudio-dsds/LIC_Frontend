@@ -1,14 +1,12 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Bell, Building2, LogOut, Mail, MessageSquare, RefreshCw } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-
-const API = 'http://localhost:5000/api';
+import { createAuthenticatedApi } from '../services/api';
 
 export default function AdminEnquiriesPage() {
   const navigate = useNavigate();
   const token = localStorage.getItem('adminToken');
-  const client = useMemo(() => axios.create({ baseURL: API, headers: { Authorization: `Bearer ${token}` } }), [token]);
+  const client = useMemo(() => createAuthenticatedApi(token), [token]);
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState('');

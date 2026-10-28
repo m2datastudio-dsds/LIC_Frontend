@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import api from '../services/api';
 import { CheckCircle, ShieldCheck, Home, TrendingUp, Building2 } from 'lucide-react';
 import { healthProductCatalog } from '../data/healthProducts';
 
@@ -159,7 +159,7 @@ function ProductDetailPage() {
       return;
     }
 
-    axios.get(`http://localhost:5000/api/products/${id}`)
+    api.get(`/products/${id}`)
       .then((response) => setProduct(response.data.data || null))
       .catch(() => setProduct(null));
   }, [id]);
